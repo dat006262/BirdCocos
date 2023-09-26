@@ -21,15 +21,20 @@ export class TreeData extends Component {
         return this.BranchSlot.length/this.branchList.length
     }
     protected onLoad(): void {
-        this.branchList = this.getComponentsInChildren(BranchData);
-        this.BranchSlot = this.getComponentsInChildren(BranchSlot);
+       this.getData()
     }
+    
     start() {
         
        
     }
     update(deltaTime: number) {
        
+    }
+    public getData()
+    {
+        this.branchList = this.getComponentsInChildren(BranchData);
+        this.BranchSlot = this.getComponentsInChildren(BranchSlot);
     }
     public checkwin():boolean
     {

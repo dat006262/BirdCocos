@@ -8,6 +8,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('GameData')
 export  class GameData extends Component {
+    @property(Prefab)public BranchPrefabs:Prefab;
+    @property(Prefab)public BranchSlotPrefabs:Prefab;
     @property(Prefab)public birdPrefabs:Prefab;
     @property(Node)public WingameLabel:Node;
     @property(Node)public LossgameLabel:Node;
@@ -18,8 +20,10 @@ export  class GameData extends Component {
     @property({ type :BirdData})  public birds_Selected:BirdData[] = [];
      public GameDataNumber:number[] = [];
 
-    @property({ type :CCInteger}) public birdNumber :number=0 ;
-    @property({ type :CCInteger})  public branchNumber:number=0;
+    
+    @property({ type :CCInteger})  public branchNumber:number=8;
+    @property({ type :CCInteger}) public birdNumberq :number=6 ;
+    @property({ type :CCInteger}) public branchnumber :number=5 ;
 
     
     
