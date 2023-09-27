@@ -20,14 +20,11 @@ export  class GameData extends Component {
     @property(BranchData) public branchSelected:BranchData;
     @property({ type :BirdData})  public birds_Selected:BirdData[] = [];
      public GameDataNumber:number[] = [];
-
-    
-     branchNumber:number=6;
-   birdNumberq :number=6 ;
-     branchLength :number=4 ;
-
-    
-    
+    canNextGame:boolean = true
+    lev:number = 0
+    branchNumber:number=6;
+    birdNumberq :number=6 ;
+    branchLength :number=4 ;
     public listColor:Color[] =
     [
         color(255,0,0,255)/*red=0*/,
@@ -46,25 +43,35 @@ export  class GameData extends Component {
         color(55, 20, 147,255)/*DeepPink=13*/
     ];
     public static Intances:GameData =null;
+
+    //---------------------------------------------------------------------------------------
     protected onLoad(): void {
         GameData.Intances = this;
     }
   
     
     start() {
+        // let array:number[] = [0,4,3,1,3,5,1,2,0,2,0,5,2,2,4,-1,-1,-1,-1,-1,0,5,5,2,1,3,4,0,3,3,1,4,5,4,1]
+        // this.StartGameAtLev(0,8,5,array)
+
+    //     let array:number[] = [9,10,10,11,1,11,9,10,-1,-1,-1,-1,1,9,11,1,10,11,9,1]
+    //    this.StartGameAtLev(0,6,4,array)
+     
+    }
+    public StartGameAtLev(lev:number,branchNumber:number,branchLength:number,GameDataNumber:number[])
+    {
+        this.lev = lev
+        this.branchNumber = branchNumber;
+        this.branchLength = branchLength;
+        this.GameDataNumber = GameDataNumber;
         this.treeData =   this.getComponentInChildren(TreeData);
-        this.SpawnBranch()
+        this.SpawnBranchAndSlot()
         this.treeData.getData()
         this.treeData.sortBranch()
         //this.GameDataNumber = [0,4,3,1,3,5,1,2,0,2,0,5,2,2,4,-1,-1,-1,-1,-1,0,5,5,2,1,3,4,0,3,3,1,4,5,4,1];
-        this.GameDataNumber = [9,10,10,11,1,11,9,10,-1,-1,-1,-1,1,9,11,1,10,11,9,1];
-        this.startGame();
-        
-        
-
-      
+        this.SpawnBirdAndGetData();
     }
-    SpawnBranch()
+    SpawnBranchAndSlot()
     {
         for (let i=0;i<this.branchNumber;i++)
         {
@@ -103,7 +110,7 @@ export  class GameData extends Component {
         this.GameDataNumber = copy.filter((num) => num !== -1);
       
     }
-    startGame()
+    SpawnBirdAndGetData()
     {
         
         this.fixGameDataNumber()
@@ -151,10 +158,44 @@ export  class GameData extends Component {
 
             })
     }
-    newGame()
+    deleteAllBranchAndSlot()
     {
+        this.treeData.BranchSlot.forEach(element => {
+            element.node.removeFromParent();
+            element.node.active = false;
+             element.destroy()
+            
+        });
+        this.treeData.branchList.forEach(element => {
+            element.node.removeFromParent();
+            element.node.active = false;
+             element.destroy()
+            
+        });
+        this.treeData.clearData()
+    }
+    NextLevelGame()
+    {
+        if(!this.canNextGame){return}
+        this.deleteAllBranchAndSlot()
+        this.WingameLabel.active = false
+        this.LossgameLabel.active = false
+        this.gameManager.lev++
+        
+        if(this.gameManager.lev>this.gameManager.Maxlevl())
+        {
+            this.gameManager.lev=this.gameManager.Maxlevl()
+           
+        }
+      
+        this.gameManager.StartGameAtLev(this.gameManager.lev)
+
+    }
+    ReStartGame()
+    {
+        if(!this.canNextGame){return}
         this.deleteAllBird()
-        this.startGame()
+        this.SpawnBirdAndGetData()
         this.WingameLabel.active = false
         this.LossgameLabel.active = false
     }

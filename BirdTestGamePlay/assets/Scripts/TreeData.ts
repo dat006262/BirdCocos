@@ -39,6 +39,11 @@ export class TreeData extends Component {
             
         });
     }
+    public clearData()
+    {
+        this.branchList = []
+        this.BranchSlot = []
+    }
     public sortBranch()
     {
         let brach_length = this.branchList.length

@@ -1031,7 +1031,7 @@
     },
     "component": "",
     "_componentId": "740b45TDjNKBa16cUc1r7Dk",
-    "handler": "newGame",
+    "handler": "NextLevelGame",
     "customEventData": ""
   },
   {
@@ -1491,7 +1491,7 @@
     },
     "component": "",
     "_componentId": "740b45TDjNKBa16cUc1r7Dk",
-    "handler": "newGame",
+    "handler": "ReStartGame",
     "customEventData": ""
   },
   {
@@ -1527,7 +1527,7 @@
         "__id__": 44
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 47
