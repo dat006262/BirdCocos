@@ -35,10 +35,32 @@ export class TreeData extends Component {
     {
         this.branchList = this.getComponentsInChildren(BranchData);
         this.BranchSlot = this.getComponentsInChildren(BranchSlot);
+        this.branchList.forEach(element => {element.getData()
+            
+        });
     }
     public sortBranch()
     {
-        
+        let brach_length = this.branchList.length
+        for (let i=0;i<brach_length;i++)
+        {
+            if(brach_length%2==0){
+                this.branchList[i].node.setPosition
+                (
+                    (i%2==0)?-310:310, 
+                    (i%2==0)? 50*((brach_length/2)-1) -100*(i/2)      :     50*(brach_length/2-1) -100*((i-1)/2),
+                    0
+                )
+            }
+            if(brach_length%2==1){
+                this.branchList[i].node.setPosition
+                (
+                    (i%2==0)?-310:310, 
+                    (i%2==0)?    50*((brach_length-1)/2) -100*(i/2)    :    50*((brach_length-1)/2-1) -100*((i-1)/2),
+                    0
+                )
+            }
+        }
     }
     public checkwin():boolean
     {

@@ -22,9 +22,9 @@ export  class GameData extends Component {
      public GameDataNumber:number[] = [];
 
     
-    @property({ type :CCInteger})  public branchNumber:number=8;
-    @property({ type :CCInteger}) public birdNumberq :number=6 ;
-    @property({ type :CCInteger}) public branchnumber :number=5 ;
+     branchNumber:number=6;
+   birdNumberq :number=6 ;
+     branchLength :number=4 ;
 
     
     
@@ -35,26 +35,64 @@ export  class GameData extends Component {
         color(255,255,0,255)/*yellow=2*/,
         color(104,255,0,255)/*whitegreen=3*/,
         color(255,0,255,255)/*pink=4*/,
-        color(255,155,0,255)/*orange=5*/
+        color(255,155,0,255)/*orange=5*/,
+        color(250, 235, 215,255)/*AliceBlue=6*/,
+        color(250, 235, 215, 255)/*AntiqueWhite=7*/,
+        color(210, 105, 30,255)/*Chocolate=8*/,
+        color(0, 139, 139,255)/*DarkCyan=9*/,
+        color( 184, 134, 11,255)/*DarkGoldenRod=10*/,
+        color(0, 100, 0,255)/*DarkGreen=11*/,
+        color(139, 0, 139,255)/*DarkMagenta=12*/,
+        color(55, 20, 147,255)/*DeepPink=13*/
     ];
     public static Intances:GameData =null;
     protected onLoad(): void {
         GameData.Intances = this;
     }
+  
+    
+    start() {
+        this.treeData =   this.getComponentInChildren(TreeData);
+        this.SpawnBranch()
+        this.treeData.getData()
+        this.treeData.sortBranch()
+        //this.GameDataNumber = [0,4,3,1,3,5,1,2,0,2,0,5,2,2,4,-1,-1,-1,-1,-1,0,5,5,2,1,3,4,0,3,3,1,4,5,4,1];
+        this.GameDataNumber = [9,10,10,11,1,11,9,10,-1,-1,-1,-1,1,9,11,1,10,11,9,1];
+        this.startGame();
+        
+        
+
+      
+    }
     SpawnBranch()
     {
-
+        for (let i=0;i<this.branchNumber;i++)
+        {
+            if(i%2==0)
+            {
+                let newBrach = instantiate(this.BranchLeftPrefabs)
+                newBrach.setParent(this.treeData.node)
+                newBrach.name = `The branch left ${ i }`
+                this.SpawnSlot(newBrach,i)
+             }
+            else
+            {
+                let newBrach = instantiate(this.BranchRightPrefabs)
+                newBrach.setParent(this.treeData.node)
+                newBrach.name = `The branch right ${ i }`
+                this.SpawnSlot(newBrach,i)
+            } 
+        }
     }
-    SpawnSlot(){}
-    start() {
-        this.GameDataNumber = [0,4,3,1,3,5,1,2,0,2,0,5,2,2,4,-1,-1,-1,-1,-1,0,5,5,2,1,3,4,0,3,3,1,4,5,4,1];
-        
-        
-        this.treeData =   this.getComponentInChildren(TreeData);
-
-        //this.startGame();
+    SpawnSlot(  BranchData:Node,branchIndex:number)
+    {
+        for (let i=0;i<this.branchLength;i++)
+        {
+            let newSlit =  instantiate(this.BranchSlotPrefabs)
+            newSlit.name = `Slot ${ branchIndex }-${ i }`
+            newSlit.setParent(BranchData)
+        }
     }
-
     update(deltaTime: number) {
         
     }
@@ -67,6 +105,7 @@ export  class GameData extends Component {
     }
     startGame()
     {
+        
         this.fixGameDataNumber()
         for (let i=0;i<this.treeData.branchList.length-2;i++)
         {
