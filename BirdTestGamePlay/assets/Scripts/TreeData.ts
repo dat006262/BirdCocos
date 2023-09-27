@@ -36,6 +36,10 @@ export class TreeData extends Component {
         this.branchList = this.getComponentsInChildren(BranchData);
         this.BranchSlot = this.getComponentsInChildren(BranchSlot);
     }
+    public sortBranch()
+    {
+        
+    }
     public checkwin():boolean
     {
         let color_Check:Color ;

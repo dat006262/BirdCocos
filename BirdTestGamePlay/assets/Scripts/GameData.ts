@@ -8,7 +8,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('GameData')
 export  class GameData extends Component {
-    @property(Prefab)public BranchPrefabs:Prefab;
+    @property(Prefab)public BranchLeftPrefabs:Prefab;
+    @property(Prefab)public BranchRightPrefabs:Prefab;
     @property(Prefab)public BranchSlotPrefabs:Prefab;
     @property(Prefab)public birdPrefabs:Prefab;
     @property(Node)public WingameLabel:Node;
@@ -40,13 +41,18 @@ export  class GameData extends Component {
     protected onLoad(): void {
         GameData.Intances = this;
     }
+    SpawnBranch()
+    {
+
+    }
+    SpawnSlot(){}
     start() {
         this.GameDataNumber = [0,4,3,1,3,5,1,2,0,2,0,5,2,2,4,-1,-1,-1,-1,-1,0,5,5,2,1,3,4,0,3,3,1,4,5,4,1];
         
         
         this.treeData =   this.getComponentInChildren(TreeData);
 
-        this.startGame();
+        //this.startGame();
     }
 
     update(deltaTime: number) {

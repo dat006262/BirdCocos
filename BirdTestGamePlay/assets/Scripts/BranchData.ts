@@ -10,9 +10,12 @@ export  class BranchData extends Component {
     @property({type: BranchSlot}) public branchSlotList: BranchSlot[] =[];
 
     protected onLoad(): void {
+        this.getData()
+    }
+    getData()
+    {
         this.branchSlotList = this.getComponentsInChildren(BranchSlot);
     }
-
     GetLastBird():BirdData[]
     {     
         let isBranchEmpty:boolean = true;
